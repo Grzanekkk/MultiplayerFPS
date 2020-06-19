@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Networking.Types;
 
 public class PlayerSetUp : NetworkBehaviour
 {
@@ -8,15 +9,17 @@ public class PlayerSetUp : NetworkBehaviour
 
     [SerializeField]
     Camera startUpCamera;
+
+    [SerializeField]
+    string remotaLayerName = "RemotePlayer";
+
     
     void Start()
     {
         if (!isLocalPlayer)
         {
-            for (int i = 0; i < componetsToDisable.Length; i++)
-            {
-                componetsToDisable[i].enabled = false;
-            }
+            DisableComponents();
+            AssignRemoteLayer();
         }
         else
         {
@@ -25,9 +28,28 @@ public class PlayerSetUp : NetworkBehaviour
             {
                 Camera.main.gameObject.SetActive(false);
             }
-            
-
         }
+
+        RegisterPlayer();
+    }
+
+    void RegisterPlayer()
+    {
+        string ID = $"Player {GetComponent<NetworkIdentity>().netId}";
+        transform.name = ID;
+    }
+
+    void DisableComponents()
+    {
+        for (int i = 0; i < componetsToDisable.Length; i++)
+        {
+            componetsToDisable[i].enabled = false;
+        }
+    }
+
+    void AssignRemoteLayer()
+    {
+        gameObject.layer = LayerMask.NameToLayer(remotaLayerName);
     }
 
     void OnDisable()
