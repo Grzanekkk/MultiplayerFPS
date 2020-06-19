@@ -6,6 +6,7 @@ public class PlayerSetUp : NetworkBehaviour
     [SerializeField]
     Behaviour[] componetsToDisable;
 
+    [SerializeField]
     Camera startUpCamera;
     
     void Start()
