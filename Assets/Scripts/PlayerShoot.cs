@@ -51,9 +51,9 @@ public class PlayerShoot : NetworkBehaviour
     }
 
     [Command]
-    void CmdPlayerShot(string _ID)
+    void CmdPlayerShot(string _playerID)
     {
-        Debug.Log($"{_ID} has been shot");
+        Debug.Log($"{_playerID} has been shot");
 
         // Destroy(GameObject.Find(_ID)); BARDZO WOLNE I NIE EFEKTYWNE
     }

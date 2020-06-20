@@ -20,6 +20,7 @@ public class PlayerSetUp : NetworkBehaviour
         {
             DisableComponents();
             AssignRemoteLayer();
+            
         }
         else
         {
@@ -29,14 +30,14 @@ public class PlayerSetUp : NetworkBehaviour
                 Camera.main.gameObject.SetActive(false);
             }
         }
-
-        RegisterPlayer();
     }
 
-    void RegisterPlayer()
+    public override void OnStartClient()
     {
-        string ID = $"Player {GetComponent<NetworkIdentity>().netId}";
-        transform.name = ID;
+        base.OnStartClient();
+
+        string netID = GetComponent<NetworkIdentity>().netId.ToString();
+        Player player = GetComponent<Player>();
     }
 
     void DisableComponents()
