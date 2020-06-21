@@ -651,7 +651,6 @@ MonoBehaviour:
   - {fileID: 5495114769449201677}
   - {fileID: 5495114769449201678}
   - {fileID: 114531098322075174}
-  startUpCamera: {fileID: 0}
   remotaLayerName: RemotePlayer
 --- !u!114 &114204097156235356
 MonoBehaviour:
