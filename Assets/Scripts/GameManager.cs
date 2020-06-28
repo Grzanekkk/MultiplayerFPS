@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-    private const string PLAYER_ID_PREFIX = "Player";
+    private const string PLAYER_ID_PREFIX = "Player ";
 
     private static Dictionary<string, Player> players = new Dictionary<string, Player>();
 
@@ -14,29 +14,15 @@ public class GameManager : MonoBehaviour
         _player.transform.name = playerID;
     }
 
-    public static void UnRegisterPlayer(string _playerID)
+    public static void UnRegisterPlayer(string playerID)
     {
-        players.Remove(_playerID);
+        players.Remove(playerID);
     }
 
     public static Player GetPlayer(string _playerID)
     {
         return players[_playerID];
     }
-
-//    void OnGUI()
-//    {
-//        GUILayout.BeginArea(new Rect(200, 200, 200, 500));
-//        GUILayout.BeginVertical();
-
-//        foreach (string _playerID in players.Keys)
-//        {
-//            GUILayout.Label(_playerID + "  -  " + players[_playerID].transform.name);
-//        }
-
-//        GUILayout.EndVertical();
-//        GUILayout.EndArea();
-//    }
 }
 
-
+  

@@ -38,23 +38,22 @@ public class PlayerShoot : NetworkBehaviour
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, weapon.range, mask))
         {
             // We hit something 
+            // Debug.Log($"We hit {hit.collider.name}");
+
             if (hit.collider.tag == PLAYER_TAG)
             {
-                CmdPlayerShot(hit.collider.name);
-            }
-            else
-            {
-                Debug.Log($"We hit {hit.collider.name}");
+                CmdPlayerShot(hit.collider.name, weapon.damage);
             }
     
         }
     }
 
     [Command]
-    void CmdPlayerShot(string _playerID)
+    void CmdPlayerShot(string _playerID, int damage)
     {
         Debug.Log($"{_playerID} has been shot");
 
-        // Destroy(GameObject.Find(_ID)); BARDZO WOLNE I NIE EFEKTYWNE
+        Player player  = GameManager.GetPlayer(_playerID);
+        player.RpcTakeDamage(damage);
     }
 }

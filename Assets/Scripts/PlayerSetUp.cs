@@ -2,12 +2,13 @@
 using UnityEngine.Networking;
 using UnityEngine.Networking.Types;
 
-// [RequireComponent(typeof(PlayerManager))]
+[RequireComponent(typeof(Player))]
 public class PlayerSetUp : NetworkBehaviour
 {
     [SerializeField]
     Behaviour[] componetsToDisable;
 
+    [SerializeField]
     Camera startUpCamera;
 
     [SerializeField]
@@ -19,9 +20,7 @@ public class PlayerSetUp : NetworkBehaviour
         if (!isLocalPlayer)
         {
             DisableComponents();
-            AssignRemoteLayer();
-            
-            
+            AssignRemoteLayer();          
         }
         else
         {
@@ -31,14 +30,17 @@ public class PlayerSetUp : NetworkBehaviour
                 Camera.main.gameObject.SetActive(false);
             }
         }
+
     }
 
-    public override void OnStartClient() // aktywuje się gdy obiekt dołącza do gry
+
+    public override void OnStartClient()
     {
         base.OnStartClient();
 
         string netID = GetComponent<NetworkIdentity>().netId.ToString();
         Player player = GetComponent<Player>();
+
         GameManager.RegisterPlayer(netID, player);
     }
 
