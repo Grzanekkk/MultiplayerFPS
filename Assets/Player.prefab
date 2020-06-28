@@ -635,7 +635,7 @@ MonoBehaviour:
     m_Bits: 567
   weapon:
     name: Pistol
-    damage: 10
+    damage: 40
     range: 200
 --- !u!114 &114330319873068688
 MonoBehaviour:
@@ -650,6 +650,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  disableOnDeath:
+  - {fileID: 3057705477261253390}
+  - {fileID: 1554176247861443366}
+  currentHealth: 0
 --- !u!1 &7023435737663976702
 GameObject:
   m_ObjectHideFlags: 0

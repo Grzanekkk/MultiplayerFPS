@@ -31,7 +31,10 @@ public class PlayerSetUp : NetworkBehaviour
             }
         }
 
+        GetComponent<Player>().Setup();
     }
+
+
 
 
     public override void OnStartClient()

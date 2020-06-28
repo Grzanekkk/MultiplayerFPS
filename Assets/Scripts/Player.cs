@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Collections;
 
 public class Player : NetworkBehaviour
 {
@@ -20,11 +21,14 @@ public class Player : NetworkBehaviour
     private bool[] wasEnabled;
 
     [SyncVar]
+    [SerializeField]
     private int currentHealth;
 
 
     public void Setup()
     {
+        Debug.Log("Działa");
+
         wasEnabled = new bool[disableOnDeath.Length];
         for (int i = 0; i < wasEnabled.Length; i++)
         {
@@ -34,11 +38,28 @@ public class Player : NetworkBehaviour
         SetDefault();
     }
 
+    void Update()
+    {
+        if (!isLocalPlayer)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.K))
+            RpcTakeDamage(99999);
+    }
+
     void SetDefault()
     {
         isDead = false;
         currentHealth = maxHealth;
 
+        for (int i = 0; i < disableOnDeath.Length; i++)
+        {
+            disableOnDeath[i].enabled = wasEnabled[i];
+        }
+
+        Collider collider = GetComponent<Collider>();
+        if (collider != null)
+            collider.enabled = true;
     }
 
     [ClientRpc]
@@ -61,11 +82,35 @@ public class Player : NetworkBehaviour
     {
         isDead = true;
 
-        //Disable components
+        for (int i = 0; i < disableOnDeath.Length; i++)
+        {
+            disableOnDeath[i].enabled = false;
+        }
+
+        GetComponent<PlayerMotor>().Move(Vector3.zero);
+
+
+        Collider collider = GetComponent<Collider>();
+        if (collider != null)
+            collider.enabled = false;
 
         Debug.Log($"{transform.name} is DEAD!!!");
 
-        // Respawn();
+        // Respawn(); Tak nie zadziała XD
+
+        StartCoroutine(Respawn());
     }
 
+    IEnumerator Respawn()
+    {
+        Debug.Log("Respawning in 3.. 2.. 1..");
+        yield return new WaitForSecondsRealtime(3f);
+
+        SetDefault();
+        Transform spawnPoint = NetworkManager.singleton.GetStartPosition();
+        transform.position = spawnPoint.position;
+        transform.rotation = spawnPoint.rotation;
+
+        Debug.Log(transform.name + " Respawned!!");
+    }
 }

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
+
+
+    #region Player tracking
+
     private const string PLAYER_ID_PREFIX = "Player ";
 
     private static Dictionary<string, Player> players = new Dictionary<string, Player>();
@@ -23,6 +27,8 @@ public class GameManager : MonoBehaviour
     {
         return players[_playerID];
     }
+
+    #endregion Registering player
 }
 
-  
+
