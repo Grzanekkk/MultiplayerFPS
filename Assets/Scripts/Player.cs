@@ -27,7 +27,6 @@ public class Player : NetworkBehaviour
 
     public void Setup()
     {
-        Debug.Log("Działa");
 
         wasEnabled = new bool[disableOnDeath.Length];
         for (int i = 0; i < wasEnabled.Length; i++)
@@ -104,7 +103,7 @@ public class Player : NetworkBehaviour
     IEnumerator Respawn()
     {
         Debug.Log("Respawning in 3.. 2.. 1..");
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(GameManager.singelton.matchSettings.respawnTime);
 
         SetDefault();
         Transform spawnPoint = NetworkManager.singleton.GetStartPosition();
