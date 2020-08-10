@@ -1,2 +1,2 @@
 # MultiplayerFPS
-MultiplayerFPS bum bum ratatata brrrrr
+Multiplayerowa gra FPS. Powastała na potrzeby nauki sieciowych rozwiązań w grach komputerowych
