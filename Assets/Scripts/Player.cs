@@ -20,14 +20,12 @@ public class Player : NetworkBehaviour
     private Behaviour[] disableOnDeath;
     private bool[] wasEnabled;
 
-    [SyncVar]
-    [SerializeField]
+    [SyncVar] [SerializeField]
     private int currentHealth;
 
 
     public void Setup()
     {
-
         wasEnabled = new bool[disableOnDeath.Length];
         for (int i = 0; i < wasEnabled.Length; i++)
         {
@@ -69,12 +67,15 @@ public class Player : NetworkBehaviour
 
         currentHealth -= _damage;
 
-        Debug.Log($"Now {transform.name} has {currentHealth} health points");
-
         if (currentHealth <= 0)
         {
             Die();
         }
+        else
+        {
+            Debug.Log($"Now {transform.name} has {currentHealth} health points");
+        }
+             
     }
 
     private void Die()
